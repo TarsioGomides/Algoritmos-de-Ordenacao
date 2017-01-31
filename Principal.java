@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
-    static int algoritmo_a_executar;//1 - selection
     /*********************************************************************************
      * Serve para ler os valores de um arquivo e passálos para um array
      * -Colocar para retornar um ArrayList
@@ -15,7 +14,6 @@ public class Principal {
     	try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
-            algoritmo_a_executar = Integer.parseInt(scanner.next());
             
             while (scanner.hasNext()) {
            	valores_extraidos_arquivo.add(Integer.parseInt(scanner.next()));    
@@ -213,7 +211,12 @@ public class Principal {
      * Método main
     *********************************************************************************/        
     public static void main(String[] args) {
-        ArrayList<Integer> valores_extraidos_arquivo = readFile(args[0]);
+		if(args.length != 2) {
+			System.out.println("Argumentos a mais ou a menos foram passados." +
+					" A chamada correta seria --> \"java MinhaClasse NumeroDoAlgoritmoAExecutar ArquivoDeEntrada\"");		
+		} 
+		int algoritmo_a_executar = Integer.parseInt(args[0]);
+        ArrayList<Integer> valores_extraidos_arquivo = readFile(args[1]);
         ArrayList<Integer> valores_para_selection = valores_extraidos_arquivo;
         ArrayList<Integer> valores_para_insertion = valores_extraidos_arquivo;
         ArrayList<Integer> valores_para_merge = valores_extraidos_arquivo;
