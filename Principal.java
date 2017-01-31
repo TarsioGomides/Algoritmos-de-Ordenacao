@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
+    static int algoritmo_a_executar;//1 - selection
     /*********************************************************************************
      * Serve para ler os valores de um arquivo e passálos para um array
      * -Colocar para retornar um ArrayList
@@ -14,6 +15,7 @@ public class Principal {
     	try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
+            algoritmo_a_executar = Integer.parseInt(scanner.next());
             
             while (scanner.hasNext()) {
            	valores_extraidos_arquivo.add(Integer.parseInt(scanner.next()));    
@@ -212,50 +214,56 @@ public class Principal {
     *********************************************************************************/        
     public static void main(String[] args) {
         ArrayList<Integer> valores_extraidos_arquivo = readFile(args[0]);
-		ArrayList<Integer> valores_para_selection = valores_extraidos_arquivo;
-		ArrayList<Integer> valores_para_insertion = valores_extraidos_arquivo;
-		ArrayList<Integer> valores_para_merge = valores_extraidos_arquivo;
-		ArrayList<Integer> valores_para_quick = valores_extraidos_arquivo;
+        ArrayList<Integer> valores_para_selection = valores_extraidos_arquivo;
+        ArrayList<Integer> valores_para_insertion = valores_extraidos_arquivo;
+        ArrayList<Integer> valores_para_merge = valores_extraidos_arquivo;
+        ArrayList<Integer> valores_para_quick = valores_extraidos_arquivo;
 		ArrayList<Integer> valores_para_heap = valores_extraidos_arquivo;
-
-
-		System.out.println("---------------------------- \n Executando selectionSort \n----------------------------");
-		selectionSort(valores_para_selection);
+        
+        switch (algoritmo_a_executar) {
+            case 1:
+                System.out.println("---------------------------- \n Executando selectionSort \n----------------------------");
+                selectionSort(valores_para_selection);
 		
-		for(int n : valores_para_selection){
-            System.out.println(n);
+                for(int n : valores_para_selection){
+                    System.out.println(n);
+                }
+                break;
+            case 2:
+                System.out.println("---------------------------- \n Executando insertionSort \n----------------------------");
+				insertionSort(valores_para_insertion);
+
+				for(int n : valores_para_insertion){
+                    System.out.println(n);
+                }
+                break;
+            case 3:
+                System.out.println("---------------------------- \n Executando mergeSort \n----------------------------");
+				ArrayList<Integer> auxiliar = new ArrayList<Integer> ();
+				mergeSort(valores_para_merge, auxiliar, 0, valores_para_merge.size()-1);
+
+				for(int n : valores_para_merge){
+                    System.out.println(n);
+                }
+                break;
+            case 4:
+                System.out.println("---------------------------- \n Executando quickSort \n----------------------------");
+				quickSort(valores_para_quick, 0, valores_para_quick.size()-1);
+
+				for(int n : valores_para_quick){
+                    System.out.println(n);
+                }
+                break;
+            case 5:
+                System.out.println("---------------------------- \n Executando heapSort \n----------------------------");
+				heapSort(valores_para_heap);
+
+				for(int n : valores_para_heap){
+                    System.out.println(n);
+                }
+                break;         
         }
-
-		System.out.println("---------------------------- \n Executando insertionSort \n----------------------------");
-		insertionSort(valores_para_insertion);
-
-		for(int n : valores_para_insertion){
-            System.out.println(n);
-        }
-
-		System.out.println("---------------------------- \n Executando mergeSort \n----------------------------");
-		ArrayList<Integer> auxiliar = new ArrayList<Integer> ();
-		mergeSort(valores_para_merge, auxiliar, 0, valores_para_merge.size()-1);
-
-		for(int n : valores_para_merge){
-            System.out.println(n);
-        }
-
-		System.out.println("---------------------------- \n Executando quickSort \n----------------------------");
-		quickSort(valores_para_quick, 0, valores_para_quick.size()-1);
-
-		for(int n : valores_para_quick){
-            System.out.println(n);
-        }
-
-		System.out.println("---------------------------- \n Executando heapSort \n----------------------------");
-		heapSort(valores_para_heap);
-
-		for(int n : valores_para_heap){
-            System.out.println(n);
-        }
-
-	}
+    }
     
 }
 
