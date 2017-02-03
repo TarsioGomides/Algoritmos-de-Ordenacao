@@ -1,7 +1,12 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Principal {
     /*********************************************************************************
@@ -25,6 +30,40 @@ public class Principal {
         }
         
         return valores_extraidos_arquivo;
+    }
+
+	/*********************************************************************************
+     * Salva o resultado da ordenação em um arquivo
+    *********************************************************************************/
+	public static void salvarOrdenacaoEmArquivo(ArrayList<Integer> resultado) {
+		try {
+            FileWriter escritor_de_arquivos = new FileWriter("/home/usuariot/Área de Trabalho/"
+                    + "Projetos-git/Algoritmos-de-Ordenacao/arquivos ordenados/teste1.txt", false);
+            BufferedWriter escritor_de_buffer = new BufferedWriter(escritor_de_arquivos);
+        
+        for(int i = 0; i < resultado.size(); i++) {
+            escritor_de_buffer.write(Integer.toString(resultado.get(i)));
+			escritor_de_buffer.newLine();
+        }
+        
+        escritor_de_buffer.close();
+        escritor_de_arquivos.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+	/*********************************************************************************
+     * Verifica se a entrada foi realmente ordenada
+    *********************************************************************************/
+    public static void verificarOrdenacao(ArrayList<Integer> resultado) {
+        for(int i = 1; i < resultado.size(); i++) {
+            if(resultado.get(i-1) > resultado.get(i)) {
+                System.out.println("Há erro na ordenação");
+                return;
+            }
+        }
+        System.out.println("A ordenação está OK");
     }
 
     /*********************************************************************************
@@ -115,8 +154,17 @@ public class Principal {
         }
             
     }
-
+		
 	/*********************************************************************************
+     * Método sort
+    *********************************************************************************/
+    public static void sort(ArrayList<Integer> vetor) {
+        int inicio = 0;
+        int fim = vetor.size() - 1;
+        quickSort(vetor, inicio, fim);   
+    }
+    
+    /*********************************************************************************
      * Nome: quickSort(ArrayList<Integer> vetor, int esquerda, int direita)
      * Descrição geral do algoritmo: 1 - Escolha um elemento pivô
      * 2 - Separe elementos menores que o pivô para a esquerda e elementos maiores
@@ -127,10 +175,10 @@ public class Principal {
      * do pivô
     *********************************************************************************/
     private static void quickSort(ArrayList<Integer> vetor, int esquerda, int direita) {
-        if (esquerda < direita) {
-            int j = separar(vetor, esquerda, direita);//separa o vetor e o j guarda o valor do pivô
-            quickSort(vetor, esquerda, j-1);
-            quickSort(vetor, j+1, direita);
+    	if (esquerda < direita) {
+        	int pivo = separar(vetor, esquerda, direita);//separa o vetor e o j guarda o valor do pivô
+          	quickSort(vetor, esquerda, pivo-1);
+            quickSort(vetor, pivo+1, direita);
         }
     }
     
@@ -139,35 +187,23 @@ public class Principal {
      * Descrição: É um método auxiliar ao método quickSort, ajudando a dividir o vetor
     *********************************************************************************/
     private static int separar(ArrayList<Integer> vetor, int esquerda, int direita) {
-        int i = esquerda, j = direita;
+    	int pivo = vetor.get(direita), i = esquerda;
         
-        while(i < j) {
-            while(i<direita && vetor.get(i)<=vetor.get(esquerda))
-                i++;
-            while(j>esquerda && vetor.get(j)>=vetor.get(esquerda))
-                j--;
-            if(i < j) {
-                trocar(vetor, i, j);//colocar os elementos maiores a direita do pivô e os menores a esquerda
-                i++;
-                j--;   
-            }    
-        }
-        //coloca o pivô na posição correta
-        trocar(vetor, esquerda, j);
-         
-        return j;//retorna a posição do pivô
-    }
-    
-    /*********************************************************************************
-     * Método trocar(int[] vetor, int[] auxiliar, int inicio, int meio, int fim)
-     * Descrição: É um método auxiliar ao método quickSort, ajudando a trocar
-     * elementos de posição
-    *********************************************************************************/
-    private static void trocar(ArrayList<Integer> vetor, int i, int j){
-        int aux = vetor.get(i);
-        vetor.set(i, vetor.get(j));
-        vetor.set(j, aux);
-    }
+    	for(int j = esquerda; j <= direita - 1; j++){
+        	if(vetor.get(j).compareTo(pivo) < 1) {
+            	int aux = vetor.get(i);
+               	vetor.set(i, vetor.get(j));
+               	vetor.set(j, aux);
+               	i += 1;
+           	}
+       	}
+        
+       	int aux = vetor.get(i);
+       	vetor.set(i, vetor.get(direita));
+       	vetor.set(direita, aux);
+        
+       	return i;
+	}
 
 	/*********************************************************************************
      * Nome: heapSort
@@ -250,12 +286,12 @@ public class Principal {
                 }
                 break;
             case 4:
-                System.out.println("---------------------------- \n Executando quickSort \n----------------------------");
-				quickSort(valores_para_quick, 0, valores_para_quick.size()-1);
-
+                System.out.println("---------------------------- \n Executando quickSort \n----------------------------");		
+				sort(valores_para_quick);							
+				
 				for(int n : valores_para_quick){
                     System.out.println(n);
-                }
+                }	
                 break;
             case 5:
                 System.out.println("---------------------------- \n Executando heapSort \n----------------------------");
