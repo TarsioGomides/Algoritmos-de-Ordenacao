@@ -9,7 +9,7 @@ public class ExecucaoDosAlgoritmos {
     *********************************************************************************/
     private static ArrayList<Integer> readFile(String fileName) {
         ArrayList<Integer> valores_extraidos_arquivo = new ArrayList<>();
-    	try {
+        try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
             
@@ -18,7 +18,7 @@ public class ExecucaoDosAlgoritmos {
             }
             
             scanner.close();
-       	} catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         
@@ -31,8 +31,8 @@ public class ExecucaoDosAlgoritmos {
     public static void main(String[] args) {
         if(args.length != 2) {
             System.out.println("Argumentos a mais ou a menos foram passados." +
-                " A chamada correta seria --> \"java MinhaClasse NumeroDoAlgoritmoAExecutar ArquivoDeEntrada\"");		
-	} 
+                " A chamada correta seria --> \"java MinhaClasse NumeroDoAlgoritmoAExecutar ArquivoDeEntrada\"");
+        } 
 		
         int algoritmo_a_executar = Integer.parseInt(args[0]);
         ArrayList<Integer> valores_extraidos_arquivo = readFile(args[1]);
