@@ -36,15 +36,13 @@ public class ExecucaoDosAlgoritmos {
 		
         int algoritmo_a_executar = Integer.parseInt(args[0]);
         ArrayList<Integer> valores_extraidos_arquivo = readFile(args[1]);
-        //ArrayList<Integer> valores_para_selection = valores_extraidos_arquivo;
-        //ArrayList<Integer> valores_para_insertion = valores_extraidos_arquivo;
         
         switch (algoritmo_a_executar) {
             case 1:
                 System.out.println("---------------------------- \n Executando insertionSort \n----------------------------");
                 InsertionSort.insertionSortAlgoritmo(valores_extraidos_arquivo);
-
-		for(int n : valores_extraidos_arquivo){
+                
+                for(int n : valores_extraidos_arquivo){
                     System.out.println(n);
                 }
                 break;  
@@ -52,6 +50,23 @@ public class ExecucaoDosAlgoritmos {
                 System.out.println("---------------------------- \n Executando selectionSort \n----------------------------");
                 SelectionSort.selectionSortAlgoritmo(valores_extraidos_arquivo);
 		
+                for(int n : valores_extraidos_arquivo){
+                    System.out.println(n);
+                }
+                break;
+            case 3:
+                System.out.println("---------------------------- \n Executando mergeSort \n----------------------------");
+                ArrayList<Integer> auxiliar = new ArrayList<Integer> ();
+                MergeSort.mergeSortAlgoritmo(valores_extraidos_arquivo, auxiliar, 0, valores_extraidos_arquivo.size()-1);
+
+                for(int n : valores_extraidos_arquivo){
+                    System.out.println(n);
+                }
+                break;
+            case 4:
+                System.out.println("---------------------------- \n Executando quickSort \n----------------------------");
+                QuickSort.quickSortAlgoritmo(valores_extraidos_arquivo, 0, valores_extraidos_arquivo.size()-1);
+                
                 for(int n : valores_extraidos_arquivo){
                     System.out.println(n);
                 }

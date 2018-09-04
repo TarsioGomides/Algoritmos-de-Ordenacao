@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class QuickSort {
     /*********************************************************************************
-     * Nome: mergeSort(int vetor[], int inicio, int fim
+    * Método quickSortAlgoritmo
     *********************************************************************************/ 
     public static void quickSortAlgoritmo(ArrayList<Integer> vetor, int inicio, int fim) {
         int posicaoPivo;
@@ -15,7 +15,10 @@ public class QuickSort {
     }
     
     /*********************************************************************************
-     * Nome: mergeSort(int vetor[], int inicio, int fim)
+    * Método particiona
+    * Descrição: É um método que realiza uma das etapas necessárias para o QuickSort 
+    que é posicionar todos o elementos menores que o pivo a esquerda do mesmo e os 
+    maiores a direita
     *********************************************************************************/ 
     public static int particiona(ArrayList<Integer> vetor, int inicio, int fim) {
         int esq, dir, pivo, aux;
